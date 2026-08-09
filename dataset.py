@@ -5,11 +5,8 @@ from torch.utils.data import DataLoader
 
 
 class BarlowTwinsSTL10(STL10):
-    """
-    Wraps torchvision's STL10 dataset to return two independently
-    augmented views of the same image, instead of (image, label).
-    Used for Barlow Twins self-supervised pretraining.
-    """
+    #using Pytotch's standard dataset loader
+    #creating custom barlowtwins class that inherits its properties
 
     def __init__(self, root, split='unlabeled', download=True):
         super().__init__(root=root, split=split, download=download)
@@ -26,7 +23,7 @@ class BarlowTwinsSTL10(STL10):
         ])
 
     def __getitem__(self, index):
-        img, _ = super().__getitem__(index)  # ignore label; unlabeled split has none anyway
+        img, _ = super().__getitem__(index) 
         view1 = self.pair_transform(img)
         view2 = self.pair_transform(img)
         return view1, view2
@@ -39,16 +36,14 @@ def get_dataloader(batch_size=32, root='./data', split='unlabeled', num_workers=
         batch_size=batch_size,
         shuffle=True,
         num_workers=num_workers,
-        drop_last=True,     # important: Barlow Twins loss needs a full, consistent batch
-        pin_memory=True,
+        drop_last=True,  #remaining images not divisible by batch size has been dropped
+        pin_memory=True,#pin memory makes transferring images from cpu to gpu easier
     )
     return loader
 
 
 if __name__ == "__main__":
-    # Quick sanity check: confirm shapes are correct before using this
-    # in the training loop.
     loader = get_dataloader(batch_size=32)
     view1, view2 = next(iter(loader))
-    print("view1 shape:", view1.shape)  # expect: torch.Size([32, 3, 96, 96])
-    print("view2 shape:", view2.shape)  # expect: torch.Size([32, 3, 96, 96])
+    print("view1 shape:", view1.shape)  
+    print("view2 shape:", view2.shape)  

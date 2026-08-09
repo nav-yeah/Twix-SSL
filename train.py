@@ -8,11 +8,7 @@ from loss import barlow_twins_loss
  
 def train(subset_size=None, batch_size=256, epochs=50, lr=1e-3, lambda_param=0.005,
           checkpoint_every=5, resume_from=None):
-    """
-    subset_size=None  -> train on the full unlabeled split (100k images)
-    subset_size=2000  -> train on a small subset, e.g. for a quick proof run
-    resume_from       -> path to a saved encoder checkpoint to continue from
-    """
+    
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print("Using device:", device)
  
@@ -59,7 +55,6 @@ def train(subset_size=None, batch_size=256, epochs=50, lr=1e-3, lambda_param=0.0
         avg_loss = total_loss / max(num_batches, 1)
         print(f"Epoch {epoch+1}/{epochs} - avg loss: {avg_loss:.4f}")
  
-        # Save periodically so a Kaggle session timeout doesn't lose everything
         if (epoch + 1) % checkpoint_every == 0 or (epoch + 1) == epochs:
             ckpt_path = f'encoder_checkpoint_epoch{epoch+1}.pth'
             torch.save(model.encoder.state_dict(), ckpt_path)

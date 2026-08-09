@@ -3,18 +3,13 @@ import torchvision.models as models
 
 
 class BarlowTwinsModel(nn.Module):
-    """
-    Encoder (ResNet-18, no pretrained weights, classifier head removed)
-    + projection head (MLP) that maps encoder features to the space
-    where the Barlow Twins loss is actually computed.
-    """
 
     def __init__(self, projection_dim=128, hidden_dim=512):
         super().__init__()
 
         resnet = models.resnet18(weights=None)
-        self.feature_dim = resnet.fc.in_features  # 512 for resnet18
-        resnet.fc = nn.Identity()  # remove the classification layer
+        self.feature_dim = resnet.fc.in_features  
+        resnet.fc = nn.Identity()  #removing the classification layer
         self.encoder = resnet
 
         self.projector = nn.Sequential(
@@ -25,8 +20,8 @@ class BarlowTwinsModel(nn.Module):
         )
 
     def forward(self, x):
-        h = self.encoder(x)     # (batch, 512) -- this is what you KEEP after pretraining
-        z = self.projector(h)   # (batch, projection_dim) -- only used for the loss
+        h = self.encoder(x)     
+        z = self.projector(h)  
         return z
 
 
@@ -35,4 +30,4 @@ if __name__ == "__main__":
     model = BarlowTwinsModel()
     x = torch.randn(4, 3, 96, 96)
     z = model(x)
-    print("Output shape:", z.shape)  # expect: torch.Size([4, 128])
+    print("Output shape:", z.shape)  
