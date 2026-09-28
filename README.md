@@ -8,13 +8,13 @@ Twix is a self-supervised learning (SSL) model built on **Barlow Twins** with a 
 
 ---
 
-## Demo Videos
+## Project Review Videos
 
-| # | Video | Link |
-|---|-------|------|
-| 1 | Project Overview | [Watch on YouTube](https://www.youtube.com/watch?v=x53T88ed6WU&t=5766s) |
-| 2 | Training & Implementation Walkthrough | [Watch on YouTube](https://www.youtube.com/watch?v=lDwkOKVd_NQ&t=11s) |
-| 3 | Results & Evaluation | [Watch on YouTube](https://www.youtube.com/watch?v=LELDmFJF5Pc) |
+| # | Video | Starts at | Link |
+|---|-------|-----------|------|
+| 1 | Week 1 | 1:44:39 | [Watch on YouTube](https://www.youtube.com/watch?v=x53T88ed6WU&t=6279s) |
+| 2 | Week 3 | 1:34:54 | [Watch on YouTube](https://www.youtube.com/watch?v=lDwkOKVd_NQ&t=5694s) |
+| 3 | Week 5 | 1:25:32 | [Watch on YouTube](https://www.youtube.com/watch?v=LELDmFJF5Pc&t=5132s) |
 
 ---
 
